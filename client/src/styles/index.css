@@ -1,0 +1,26 @@
+@import './reset.css';
+
+html, body { 
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root { 
+  height: 100%;
+}
+
+body {
+  font-size: 62.5%;
+}
+html {
+  box-sizing: border-box;
+}
+
+:root {
+    --orange: #FF6701;
+    --background: #F6F6EF;
+    --butttonBackground: #EFEFEF;
+    --unvisitedText: black;
+    --visitedTest: #828282;
+  }
