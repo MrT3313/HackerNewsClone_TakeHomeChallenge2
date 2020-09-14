@@ -1,12 +1,13 @@
 // IMPORTS
 import React from 'react';
 
+// COMPONENTS
+import Homepage from './views/Homepage.jsx'
+
 // __MAIN__ 
 function App() {
   return (
-    <div className="App">
-      Hello World
-    </div>
+    <Homepage />
   );
 }
 

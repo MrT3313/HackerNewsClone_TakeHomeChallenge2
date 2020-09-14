@@ -1,9 +1,9 @@
 # Hacker News Clone
-This is the second take home challenge given out by Lambda's engineering team.
+This is the second take home challenge given out by Lambda's engineering team to Lambda X students (students who have completed the program and are looking to land their first job in the industry). 
 
 My main goal of this project is to continue expanding my test capabilities with React Testing Library and Jest. 
 
-## **The Challenge**
+## **THE CHALLENGE**
 Your challenge is to build a read-only clone of the hacker news frontend using that API.
 
 ---

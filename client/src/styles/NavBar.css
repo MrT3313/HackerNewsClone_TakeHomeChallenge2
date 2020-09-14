@@ -1,0 +1,26 @@
+@import './index.css';
+
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    
+    padding: 5px;
+    width: 100%;
+
+    font-size: 1rem;
+    background-color: var(--orange);
+}
+
+.NavItem {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid black;
+}
+
+.TitleCard {
+    display: flex;
+}
+
+.Nav_LEFT {
+    display: flex;
+}
