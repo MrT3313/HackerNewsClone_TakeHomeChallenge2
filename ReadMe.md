@@ -18,3 +18,8 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 - Cleaned out template CRA
 - `<App/>` rendering 'Hello World' 
 </details>
+
+# Assets
+| name              | source | 
+| ---               | ---    | 
+| Y Combinator Logo | [seeklogo.com](https://seeklogo.com/vector-logo/274103/y-combinator) |

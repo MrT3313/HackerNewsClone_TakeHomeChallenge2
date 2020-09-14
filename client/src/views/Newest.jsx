@@ -3,12 +3,13 @@ import React from 'react';
 
 // COMPONENTS
 import NavBar from '../components/NavBar.js'
-
 // __MAIN__ 
-function Homepage() {
+function Newest() {
   return (
-    <NavBar />
+      <div>
+          <NavBar />
+      </div>
   );
 }
 
-export default Homepage;
+export default Newest;
