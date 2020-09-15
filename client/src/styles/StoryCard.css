@@ -1,0 +1,17 @@
+@import './index.css';
+
+.StoryCard {
+    display: flex; 
+
+    margin: 5px 5px;
+    background-color: var(--background);
+}
+
+.Idx {
+    width: 30px;
+}
+
+.Pagination {
+    padding: 15px 0 15px 30px;
+    background-color: var(--background);
+}
