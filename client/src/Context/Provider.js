@@ -14,6 +14,7 @@ export default function({children}) {
     // useREDUCER
     const [ state, dispatch ] = useReducer(reducer, initialState)
     const value = {
+        // Top Stories
         topStory_IDs: state.topStory_IDs,
         setTopStory_IDs: storyIDs => {
         dispatch({ 
@@ -21,7 +22,15 @@ export default function({children}) {
             value: storyIDs
         })
         },
-        
+        // New Stories
+        newStory_IDs: state.newStory_IDs,
+        setNewStory_IDs: storyIDs => {
+            dispatch({ 
+                type: actions.setNewStory_IDs, 
+                value: storyIDs
+            })
+        },
+        // Story Data
         storyData: state.storyData,
         setStoryData: storyData => {
         dispatch({
