@@ -36,7 +36,7 @@ function Footer() {
                 <div>Contact</div>
             </div>
             <div id='FooterSearch' className='Search' >
-                <label for='FooterSearch' className='SearchLabel'>Search:</label>
+                <label htmlFor='FooterSearch' className='SearchLabel'>Search:</label>
                 <input></input>
             </div>
       </div>
