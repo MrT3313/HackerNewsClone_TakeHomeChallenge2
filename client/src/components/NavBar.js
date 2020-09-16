@@ -2,8 +2,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 
-// COMPONENTS
-
 // LOGOS
 import YCombinatorLogo from '../assets/YCombinatorLogo.svg'
 

@@ -1,9 +1,6 @@
 // IMPORTS
 import React from 'react';
 
-// COMPONENTS
-
-
 // STYLES
 import '../styles/Footer.css'
 

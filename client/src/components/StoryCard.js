@@ -16,12 +16,12 @@ function StoryCard({data, idx}) {
             </div>
             <div className='Left'>
                 <div className='top'>
-                    <div className='title'>
+                    <a className='title' href={data.url} target='_blank'>
                         {data.title}
-                    </div>
-                    <div className='url'>
+                    </a>
+                    <a className='url'>
                         {'(' + toBaseURL(data.url) + ')'}
-                    </div>
+                    </a>
                 </div>
                 <div className='bottom'>
                     <div className='points'>
