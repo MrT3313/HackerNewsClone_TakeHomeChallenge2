@@ -1,0 +1,44 @@
+@import './index.css';
+
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    
+    padding: 5px;
+    width: 100%;
+
+    font-size: .8rem;
+    background-color: var(--orange);
+}
+
+.Nav_LEFT, .Nav_RIGHT {
+    display: flex;
+    align-items: center;
+}
+
+.NavItem {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.NavPipe { 
+    margin: 0 5px 0 5px;
+}
+.NavItem:first-child {
+    margin-right: 10px;
+}
+.ActiveNavLink {
+    color: white;
+}
+
+.NavItem > .Logo {
+    border: 1px solid white;
+    margin-right: 5px;
+}
+.NavItem > .Title {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+

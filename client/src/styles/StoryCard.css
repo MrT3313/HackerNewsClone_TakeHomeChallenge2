@@ -1,0 +1,45 @@
+@import './index.css';
+
+.StoryCard {
+    display: flex; 
+
+    margin: 7px 7px;
+    background-color: var(--background);
+}
+/* RIGHT */
+.Idx {
+    font-size: .9rem;
+    width: 30px;
+}
+/* LEFT */
+.Left {
+    display: flex;
+    flex-direction: column;
+}
+.Left > .top {
+    display: flex;
+    align-items: center;
+}
+.Left > .top > .title {
+    font-size: .9rem;
+    margin-right: 5px;
+}
+.Left > .top > .url {
+    color: var(--visitedText);
+}
+
+.Left > .bottom {
+    display: flex;
+    margin: 4px 7px 0 0;
+    color: var(--visitedText)
+}
+.Left > .bottom > .points, .author {
+    margin-right: 5px;
+}
+/* PAGINATION */
+.Pagination {
+    font-size: .9rem;
+    padding: 15px 0 15px 30px;
+    color: var(--visitedText);
+    background-color: var(--background);
+}
