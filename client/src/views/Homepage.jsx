@@ -13,10 +13,10 @@ import GlobalContext from '../Context/GlobalContext.js'
 import endpoints from '../utils/endpoints.js'
 
 // STYLES
-import '../styles/Entry.css'
+import '../styles/Homepage.css'
 
 // __MAIN__ 
-function Entry() {
+function Homepage() {
     // Context
     const { topStory_IDs, storyData } = useContext(GlobalContext)
 
@@ -30,7 +30,7 @@ function Entry() {
     const currPosts = topStory_IDs.slice(idxOfFirstPost, idxOfLastPost)
 
     return (
-        <div className='Entry'>
+        <div className='Homepage'>
             <NavBar />
             {currPosts.map((id, idx) => {
                 console.log(id, idx)
@@ -49,4 +49,4 @@ function Entry() {
 }
 
 // EXPORT
-export default Entry;
+export default Homepage;

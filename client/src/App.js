@@ -3,8 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
 // COMPONENTS
-import Entry from './views/Entry.jsx'
-// import Homepage from './views/Homepage.jsx'
+import Homepage from './views/Homepage.jsx'
 import Newest from './views/Newest.jsx'
 
 // // CONTEXT
@@ -81,7 +80,7 @@ function App() {
   if (loading) { return <div>App is Loading...</div>}
   return (
     <Switch className='App'>
-      <Route exact path='/' component={Entry} />
+      <Route exact path='/' component={Homepage} />
       {/* <Route exact path='/news' component={Homepage} /> */}
       {/* <Route exact path='/newest' component={Newest} /> */}
     </Switch>
