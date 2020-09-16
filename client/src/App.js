@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 
 // COMPONENTS
 import Homepage from './views/Homepage.jsx'
-import Newest from './views/Newest.jsx'
+// import Newest from './views/Newest.jsx'
 
 // // CONTEXT
 import GlobalContext from './Context/GlobalContext.js'

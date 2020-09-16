@@ -21,7 +21,7 @@ function NavBar() {
             >
                 <img
                     className='Logo'
-                    src={YCombinatorLogo}
+                    src={YCombinatorLogo} alt='Y Combinator Logo'
                     width='18px'
                     height='18px'
                     background='white'

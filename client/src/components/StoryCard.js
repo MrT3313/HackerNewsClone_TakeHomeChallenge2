@@ -1,12 +1,6 @@
 // IMPORTS
 import React from 'react'
 
-// CONTEXT
-// import GlobalContext from '../Context/GlobalContext.js'
-
-// ENDPOINTS
-import endpoints from '../utils/endpoints.js'
-
 // FUNCTIONS
 import toBaseURL from '../utils/toBaseURL.js'
 
@@ -15,8 +9,6 @@ import '../styles/StoryCard.css'
 
 // __MAIN__
 function StoryCard({data, idx}) {
-    console.log(data)
-    console.log(data.kids)
     return (
         <div className="StoryCard">
             <div className='Right'>

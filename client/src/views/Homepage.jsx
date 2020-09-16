@@ -1,5 +1,5 @@
 // IMPORTS
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 // COMPONENTS
 import NavBar from '../components/NavBar.js'
@@ -8,9 +8,6 @@ import StoryCard from '../components/StoryCard.js'
 
 // CONTEXT
 import GlobalContext from '../Context/GlobalContext.js'
-
-// ENDPOINTS
-import endpoints from '../utils/endpoints.js'
 
 // STYLES
 import '../styles/Homepage.css'
@@ -22,7 +19,7 @@ function Homepage() {
 
     // State
     const [currPage, setCurrPage] = useState(1)
-    const [maxPerPage, setMaxPerPage] = useState(30)
+    const [maxPerPage] = useState(30)
 
     // Pagination
     const idxOfLastPost = currPage * maxPerPage
@@ -33,7 +30,6 @@ function Homepage() {
         <div className='Homepage'>
             <NavBar />
             {currPosts.map((id, idx) => {
-                console.log(id, idx)
                 return (
                     <StoryCard key={storyData[id].idx} data={storyData[id]}/> 
                 )
