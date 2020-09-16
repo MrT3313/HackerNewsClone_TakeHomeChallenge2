@@ -6,17 +6,23 @@ import { Switch, Route } from 'react-router-dom'
 import Homepage from './views/Homepage.jsx'
 // import Newest from './views/Newest.jsx'
 
-// // CONTEXT
+// CONTEXT
 import GlobalContext from './Context/GlobalContext.js'
 
 // ENDPOINTS
 import endpoints from './utils/endpoints.js'
+
+// FUNCTIONS
+import FETCH_itemData_from_IDarray from './utils/FETCH_itemData_from_IDarray.js'
+import GET_topStories from './utils/GET_topStories.js'
+import GET_newStories from './utils/GET_newStories.js'
 
 // __MAIN__ 
 function App() {
   // Context
   const { 
     topStory_IDs, setTopStory_IDs,
+    newStory_IDs, setNewStory_IDs,
     storyData, setStoryData,
   } = useContext(GlobalContext)
 
@@ -26,42 +32,33 @@ function App() {
   // useEFFECT
   useEffect(() => {
     console.log('FIRST USE EFFECT')
-    // get top story IDs
-    fetch(`${endpoints.HN_BASE_URL}${endpoints.topStories}`)
-      .then(response => response.json())
+    // - 1 - // Top Stories
+    GET_topStories()
       .then(data => {
-        // set top story IDs
-        setTopStory_IDs(data.slice(0,100))
+        // TODO: REMOVE SLICE TO UPDATE ALL DATA
+        // setTopStory_IDs(data)
+        setTopStory_IDs(data.slice(0,50))
       })
-      console.log('end - FIRST USE EFFECT')
-    }, [])
-    
-    useEffect(() => {
-      console.log('SECOND USE EFFECT')
-      // Async Function
-      async function GET_itemDataFromList() {
-        let newStoryData = {}
 
-        for (const [idx, itemID] of topStory_IDs.entries()) {
-          // Setup URL
-          const url = `${endpoints.HN_BASE_URL}${endpoints.item}${itemID}.json`
-          // Get Data
-          const data = await fetch(url)
-            .then(storyData => storyData.json())
-            .catch(err => console.log(err))
-          // Update Prep Object
-          newStoryData[data.id] = data
-          newStoryData[data.id].idx = idx
-        }
-        return newStoryData
-      }
-      if ( topStory_IDs.length !== 0) {
-        GET_itemDataFromList()
-          .then(data => {
-            setStoryData(data)
-          })
-      }
-      console.log('end - SECOND USE EFFECT')
+    // - 2 - // New Stories
+    GET_newStories()
+      .then(data => {
+        // TODO: REMOVE SLICE TO UPDATE ALL DATA
+        // setNewStory_IDs(data)
+        setNewStory_IDs(data.slice(0,50))
+      })
+    console.log('end - FIRST USE EFFECT')
+  }, [])
+    
+  useEffect(() => {
+    console.log('SECOND USE EFFECT')
+    if ( topStory_IDs.length !== 0) {
+      FETCH_itemData_from_IDarray(topStory_IDs, 'id', endpoints.HN_BASE_URL, endpoints.item, '.json')
+        .then(data => {
+          setStoryData(data)
+        })
+    }
+    console.log('end - SECOND USE EFFECT')
   }, [topStory_IDs])
 
   useEffect(() => {
