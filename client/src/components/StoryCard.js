@@ -8,7 +8,7 @@ import GlobalContext from '../Context/GlobalContext.js'
 import endpoints from '../utils/endpoints.js'
 
 // FUNCTIONS
-import toBaseURL from '../utils/toBaseURL.js'
+import toBaseURL from '../utils/REGEX_toBaseURL.js'
 import FETCH_data from '../utils/FETCH_data.js'
 
 // STYLES

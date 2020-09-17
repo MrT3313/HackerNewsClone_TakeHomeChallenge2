@@ -3,11 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
 // COMPONENTS
-import Homepage from './views/Homepage.jsx'
-import Newest from './views/Newest.jsx'
-import Ask from './views/Ask.jsx'
-import Show from './views/Show.jsx'
-import Jobs from './views/Jobs.jsx'
+import Dynamic from './views/Dynamic.jsx'
 
 // CONTEXT
 import GlobalContext from './Context/GlobalContext.js'
@@ -16,12 +12,7 @@ import GlobalContext from './Context/GlobalContext.js'
 import endpoints from './utils/endpoints.js'
 
 // FUNCTIONS
-import FETCH_itemData_from_IDarray from './utils/FETCH_itemData_from_IDarray.js'
-import GET_topStories from './utils/GET_topStories.js'
-import GET_newStories from './utils/GET_newStories.js'
-import GET_askStories from './utils/GET_askStories.js'
-import GET_jobStories from './utils/GET_jobStories.js'
-import GET_showStories from './utils/GET_showStories.js'
+import GET_IDs from './utils/GET_IDs.js'
 
 // __MAIN__ 
 function App() {
@@ -43,7 +34,7 @@ function App() {
     console.log('FIRST USE EFFECT')
     // TODO: Promise.all => update isLoading
     // - 1 - // Top Stories
-    GET_topStories()
+    GET_IDs(endpoints.HN_BASE_URL, endpoints.topStories)
       .then(data => {
         // TODO: REMOVE SLICE TO UPDATE ALL DATA
         setTopStory_IDs(data)
@@ -51,7 +42,7 @@ function App() {
       })
 
     // - 2 - // New Stories
-    GET_newStories()
+    GET_IDs(endpoints.HN_BASE_URL, endpoints.newStories)
       .then(data => {
         // TODO: REMOVE SLICE TO UPDATE ALL DATA
         setNewStory_IDs(data)
@@ -59,7 +50,7 @@ function App() {
       })
 
     // - 3 - // Ask Stories
-    GET_askStories()
+    GET_IDs(endpoints.HN_BASE_URL, endpoints.askStories)
       .then(data => {
         // TODO: REMOVE SLICE TO UPDATE ALL DATA
         setAskStory_IDs(data)
@@ -67,7 +58,7 @@ function App() {
       })
 
     // - 4 - // Job Stories
-    GET_jobStories()
+    GET_IDs(endpoints.HN_BASE_URL, endpoints.jobStories)
       .then(data => {
         // TODO: REMOVE SLICE TO UPDATE ALL DATA
         setJobStory_IDs(data)
@@ -75,7 +66,7 @@ function App() {
       })
 
     // - 5 - // Show Stories
-    GET_showStories()
+    GET_IDs(endpoints.HN_BASE_URL, endpoints.showStories)
       .then(data => {
         // TODO: REMOVE SLICE TO UPDATE ALL DATA
         setShowStory_IDs(data)
@@ -101,11 +92,11 @@ function App() {
   if (loading) { return <div>App is Loading...</div>}
   return (
     <Switch className='App'>
-      <Route exact path='/' render={ (props) => <Homepage {...props} key={Date.now()}/> }/>
-      <Route exact path='/newest' render={ (props) => <Newest {...props} key={Date.now()}/> }/>
-      <Route exact path='/ask' render={ (props) => <Ask {...props} key={Date.now()}/> }/>
-      <Route exact path='/show' render={ (props) => <Show {...props} key={Date.now()}/> }/>
-      <Route exact path='/jobs' render={ (props) => <Jobs {...props} key={Date.now()}/> }/>
+      <Route exact path='/' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={topStory_IDs}/> }/>
+      <Route exact path='/newest' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={newStory_IDs}/> }/>
+      <Route exact path='/ask' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={askStory_IDs}/> }/>
+      <Route exact path='/show' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={showStory_IDs}/> }/>
+      <Route exact path='/jobs' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={jobStory_IDs}/> }/>
     </Switch>
   )
 }
