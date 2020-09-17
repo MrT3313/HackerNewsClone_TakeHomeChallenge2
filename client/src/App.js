@@ -12,7 +12,7 @@ import GlobalContext from './Context/GlobalContext.js'
 import endpoints from './utils/endpoints.js'
 
 // FUNCTIONS
-import GET_IDs from './utils/GET_IDs.js'
+import FETCH_IDs from './utils/FETCH_IDs.js'
 
 // __MAIN__ 
 function App() {
@@ -32,45 +32,19 @@ function App() {
   // useEFFECT
   useEffect(() => {
     console.log('FIRST USE EFFECT')
-    // TODO: Promise.all => update isLoading
-    // - 1 - // Top Stories
-    GET_IDs(endpoints.HN_BASE_URL, endpoints.topStories)
+    FETCH_IDs(endpoints.HN_BASE_URL, [
+      endpoints.topStories,
+      endpoints.newStories,
+      endpoints.askStories,
+      endpoints.jobStories,
+      endpoints.showStories
+    ])
       .then(data => {
-        // TODO: REMOVE SLICE TO UPDATE ALL DATA
-        setTopStory_IDs(data)
-        // setTopStory_IDs(data.slice(0,50))
-      })
-
-    // - 2 - // New Stories
-    GET_IDs(endpoints.HN_BASE_URL, endpoints.newStories)
-      .then(data => {
-        // TODO: REMOVE SLICE TO UPDATE ALL DATA
-        setNewStory_IDs(data)
-        // setNewStory_IDs(data.slice(0,50))
-      })
-
-    // - 3 - // Ask Stories
-    GET_IDs(endpoints.HN_BASE_URL, endpoints.askStories)
-      .then(data => {
-        // TODO: REMOVE SLICE TO UPDATE ALL DATA
-        setAskStory_IDs(data)
-        // setNewStory_IDs(data.slice(0,50))
-      })
-
-    // - 4 - // Job Stories
-    GET_IDs(endpoints.HN_BASE_URL, endpoints.jobStories)
-      .then(data => {
-        // TODO: REMOVE SLICE TO UPDATE ALL DATA
-        setJobStory_IDs(data)
-        // setNewStory_IDs(data.slice(0,50))
-      })
-
-    // - 5 - // Show Stories
-    GET_IDs(endpoints.HN_BASE_URL, endpoints.showStories)
-      .then(data => {
-        // TODO: REMOVE SLICE TO UPDATE ALL DATA
-        setShowStory_IDs(data)
-        // setNewStory_IDs(data.slice(0,50))
+        setTopStory_IDs(data[0])
+        setNewStory_IDs(data[1])
+        setAskStory_IDs(data[2])
+        setJobStory_IDs(data[3])
+        setShowStory_IDs(data[4])
       })
     console.log('end - FIRST USE EFFECT')
   }, [])
