@@ -59,7 +59,6 @@ function App() {
     }
   }, [topStory_IDs, newStory_IDs, askStory_IDs, jobStory_IDs, showStory_IDs])
 
-
   // Return
   if (loading) { return <div>App is Loading...</div>}
   return (

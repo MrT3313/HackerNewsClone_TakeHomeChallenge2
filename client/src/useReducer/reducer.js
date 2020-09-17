@@ -16,7 +16,6 @@ export default function reducer(state, action) {
             return { ...state, jobStory_IDs: action.value }
         case actions.setShowStory_IDs:
             return { ...state, showStory_IDs: action.value }
-
         default: 
             return state
     }

@@ -20,10 +20,10 @@ export default function({children}) {
         // Top Stories
         topStory_IDs: state.topStory_IDs,
         setTopStory_IDs: storyIDs => {
-        dispatch({ 
-            type: actions.setTopStory_IDs, 
-            value: storyIDs
-        })
+          dispatch({ 
+              type: actions.setTopStory_IDs, 
+              value: storyIDs
+          })
         },
         // New Stories
         newStory_IDs: state.newStory_IDs,
