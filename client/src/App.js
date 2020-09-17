@@ -3,21 +3,27 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
 // COMPONENTS
-import Homepage from './views/Homepage.jsx'
-// import Newest from './views/Newest.jsx'
+import DynamicView from './views/DynamicView.jsx'
 
-// // CONTEXT
+// CONTEXT
 import GlobalContext from './Context/GlobalContext.js'
 
 // ENDPOINTS
 import endpoints from './utils/endpoints.js'
+
+// FUNCTIONS
+import FETCH_ALL_IDs from './utils/FETCH_ALL_IDs.js'
 
 // __MAIN__ 
 function App() {
   // Context
   const { 
     topStory_IDs, setTopStory_IDs,
-    storyData, setStoryData,
+    newStory_IDs, setNewStory_IDs,
+    askStory_IDs, setAskStory_IDs,
+    jobStory_IDs, setJobStory_IDs,
+    showStory_IDs, setShowStory_IDs,
+    // storyData, setStoryData,
   } = useContext(GlobalContext)
 
   // State
@@ -25,64 +31,43 @@ function App() {
 
   // useEFFECT
   useEffect(() => {
-    console.log('FIRST USE EFFECT')
-    // get top story IDs
-    fetch(`${endpoints.HN_BASE_URL}${endpoints.topStories}`)
-      .then(response => response.json())
+    FETCH_ALL_IDs(endpoints.HN_BASE_URL, [
+      endpoints.topStories,
+      endpoints.newStories,
+      endpoints.askStories,
+      endpoints.jobStories,
+      endpoints.showStories
+    ])
       .then(data => {
-        // set top story IDs
-        setTopStory_IDs(data.slice(0,100))
+        setTopStory_IDs(data[0])
+        setNewStory_IDs(data[1])
+        setAskStory_IDs(data[2])
+        setJobStory_IDs(data[3])
+        setShowStory_IDs(data[4])
       })
-      console.log('end - FIRST USE EFFECT')
-    }, [])
-    
-    useEffect(() => {
-      console.log('SECOND USE EFFECT')
-      // Async Function
-      async function GET_itemDataFromList() {
-        let newStoryData = {}
-
-        for (const [idx, itemID] of topStory_IDs.entries()) {
-          // Setup URL
-          const url = `${endpoints.HN_BASE_URL}${endpoints.item}${itemID}.json`
-          // Get Data
-          const data = await fetch(url)
-            .then(storyData => storyData.json())
-            .catch(err => console.log(err))
-          // Update Prep Object
-          newStoryData[data.id] = data
-          newStoryData[data.id].idx = idx
-        }
-        return newStoryData
-      }
-      if ( topStory_IDs.length !== 0) {
-        GET_itemDataFromList()
-          .then(data => {
-            setStoryData(data)
-          })
-      }
-      console.log('end - SECOND USE EFFECT')
-  }, [topStory_IDs])
+  }, [])
 
   useEffect(() => {
-    console.log('THIRD USE EFFECT')
     if (
       topStory_IDs.length !== 0 && 
-      Object.keys(storyData).length !== 0
+      newStory_IDs.length !== 0 &&
+      askStory_IDs.length !== 0 &&
+      jobStory_IDs.length !== 0 &&
+      showStory_IDs.length !== 0
     ) {
       isLoading(false)
     }
-    console.log('end - THIRD USE EFFECT')
-  },[topStory_IDs, storyData])
-
+  }, [topStory_IDs, newStory_IDs, askStory_IDs, jobStory_IDs, showStory_IDs])
 
   // Return
   if (loading) { return <div>App is Loading...</div>}
   return (
     <Switch className='App'>
-      <Route exact path='/' component={Homepage} />
-      {/* <Route exact path='/news' component={Homepage} /> */}
-      {/* <Route exact path='/newest' component={Newest} /> */}
+      <Route exact path='/' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={topStory_IDs}/> }/>
+      <Route exact path='/newest' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={newStory_IDs}/> }/>
+      <Route exact path='/ask' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={askStory_IDs}/> }/>
+      <Route exact path='/show' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={showStory_IDs}/> }/>
+      <Route exact path='/jobs' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={jobStory_IDs}/> }/>
     </Switch>
   )
 }

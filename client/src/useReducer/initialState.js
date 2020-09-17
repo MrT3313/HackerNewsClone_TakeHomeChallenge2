@@ -1,4 +1,8 @@
 export default {
+    maxPerPage: 30,
     topStory_IDs: [],
-    storyData: {},
+    newStory_IDs: [],
+    askStory_IDs: [],
+    jobStory_IDs: [],
+    showStory_IDs: [],
 }
