@@ -14,12 +14,12 @@ import GlobalContext from '../Context/GlobalContext.js'
 import '../styles/Homepage.css'
 
 // __MAIN__ 
-function Homepage() {
+function Show() {
     // Context
     const { 
-        maxPerPage,
-        topStory_IDs, 
-        // storyData 
+      maxPerPage,
+      showStory_IDs        
+      // storyData 
     } = useContext(GlobalContext)
 
     // State
@@ -29,7 +29,7 @@ function Homepage() {
     // Pagination
     const idxOfLastPost = currPage * maxPerPage
     const idxOfFirstPost = idxOfLastPost - maxPerPage
-    const currPosts = topStory_IDs.slice(idxOfFirstPost, idxOfLastPost)
+    const currPosts = showStory_IDs.slice(idxOfFirstPost, idxOfLastPost)
 
     return (
         <div className='Homepage'>
@@ -50,4 +50,4 @@ function Homepage() {
 }
 
 // EXPORT
-export default Homepage;
+export default Show;

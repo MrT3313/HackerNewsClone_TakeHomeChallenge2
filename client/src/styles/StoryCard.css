@@ -2,6 +2,7 @@
 
 .StoryCard {
     display: flex; 
+    height: 30px;
 
     margin: 7px 7px;
     background-color: var(--background);
@@ -9,7 +10,7 @@
 /* RIGHT */
 .Idx {
     font-size: .9rem;
-    width: 30px;
+    min-width: 30px;
 }
 /* LEFT */
 .Left {
