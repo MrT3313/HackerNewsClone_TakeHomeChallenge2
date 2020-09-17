@@ -1,8 +1,5 @@
 // IMPORTS
-import React, { useState, useEffect, useContext } from 'react'
-
-// CONTEXT
-import GlobalContext from '../Context/GlobalContext.js'
+import React, { useState, useEffect } from 'react'
 
 // ENDPOINTS
 import endpoints from '../utils/endpoints.js'
@@ -16,10 +13,8 @@ import '../styles/StoryCard.css'
 
 // __MAIN__
 function StoryCard({id, idx}) {
-    // Context
-    const { setStoryData } = useContext(GlobalContext)
-
     // State
+    const [ baseURL, setBaseURL ] = useState()
     const [ isLoading, setIsLoading ] = useState(true)
     const [ data, setData ] = useState() 
 
@@ -27,11 +22,11 @@ function StoryCard({id, idx}) {
     useEffect(() => {
         FETCH_data(endpoints.HN_BASE_URL, endpoints.item, id, '.json')
             .then(storyData => {
-                // setStoryData(storyData)
                 setData(storyData)
+                storyData.url && setBaseURL(toBaseURL(storyData.url))
             })
             .then(() => setIsLoading(false))
-    }, [])
+    }, [id])
 
     if (isLoading) { return <div className="StoryCard loading">LOADING</div>}
     return (
@@ -41,11 +36,11 @@ function StoryCard({id, idx}) {
             </div>
             <div className='Left'>
                 <div className='top'>
-                    <a className='title' href={data.url && data.url} target='_blank'>
+                    <a className='title' href={data.url && data.url} target='_blank' rel="noopener noreferrer">
                         {data.title}
                     </a>
-                    <a className='url'>
-                        {data.url && '(' + toBaseURL(data.url) + ')'}
+                    <a className='url' href={baseURL && `https://${baseURL}`} target='_blank' rel="noopener noreferrer">
+                        {data.url && `( ${baseURL} )`}
                     </a>
                 </div>
                 <div className='bottom'>
