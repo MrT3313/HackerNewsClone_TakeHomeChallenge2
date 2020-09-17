@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
 // COMPONENTS
-import Dynamic from './views/Dynamic.jsx'
+import DynamicView from './views/DynamicView.jsx'
 
 // CONTEXT
 import GlobalContext from './Context/GlobalContext.js'
@@ -12,7 +12,7 @@ import GlobalContext from './Context/GlobalContext.js'
 import endpoints from './utils/endpoints.js'
 
 // FUNCTIONS
-import FETCH_IDs from './utils/FETCH_IDs.js'
+import FETCH_ALL_IDs from './utils/FETCH_ALL_IDs.js'
 
 // __MAIN__ 
 function App() {
@@ -31,8 +31,7 @@ function App() {
 
   // useEFFECT
   useEffect(() => {
-    console.log('FIRST USE EFFECT')
-    FETCH_IDs(endpoints.HN_BASE_URL, [
+    FETCH_ALL_IDs(endpoints.HN_BASE_URL, [
       endpoints.topStories,
       endpoints.newStories,
       endpoints.askStories,
@@ -46,7 +45,6 @@ function App() {
         setJobStory_IDs(data[3])
         setShowStory_IDs(data[4])
       })
-    console.log('end - FIRST USE EFFECT')
   }, [])
 
   useEffect(() => {
@@ -66,11 +64,11 @@ function App() {
   if (loading) { return <div>App is Loading...</div>}
   return (
     <Switch className='App'>
-      <Route exact path='/' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={topStory_IDs}/> }/>
-      <Route exact path='/newest' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={newStory_IDs}/> }/>
-      <Route exact path='/ask' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={askStory_IDs}/> }/>
-      <Route exact path='/show' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={showStory_IDs}/> }/>
-      <Route exact path='/jobs' render={ (props) => <Dynamic {...props} key={Date.now()} IDs={jobStory_IDs}/> }/>
+      <Route exact path='/' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={topStory_IDs}/> }/>
+      <Route exact path='/newest' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={newStory_IDs}/> }/>
+      <Route exact path='/ask' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={askStory_IDs}/> }/>
+      <Route exact path='/show' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={showStory_IDs}/> }/>
+      <Route exact path='/jobs' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={jobStory_IDs}/> }/>
     </Switch>
   )
 }

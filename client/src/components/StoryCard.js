@@ -15,7 +15,7 @@ import FETCH_data from '../utils/FETCH_data.js'
 import '../styles/StoryCard.css'
 
 // __MAIN__
-function StoryCard({id, cachedContent, idx}) {
+function StoryCard({id, idx}) {
     // Context
     const { setStoryData } = useContext(GlobalContext)
 
@@ -25,36 +25,13 @@ function StoryCard({id, cachedContent, idx}) {
 
     // useEFFECT
     useEffect(() => {
-        // console.log('STORY DATA', storyData)
-        // Get Data
-        if (!cachedContent) {
-            console.log('No Cached Content - Fetching Data')
-            FETCH_data(endpoints.HN_BASE_URL, endpoints.item, id, '.json')
-                .then(storyData => {
-                    // setStoryData(storyData)
-                    setData(storyData)
-                })
-                .then(() => setIsLoading(false))
-        } else {
-            setData(cachedContent)
-        }
+        FETCH_data(endpoints.HN_BASE_URL, endpoints.item, id, '.json')
+            .then(storyData => {
+                // setStoryData(storyData)
+                setData(storyData)
+            })
+            .then(() => setIsLoading(false))
     }, [])
-    // useEffect(() => {
-    //     // Check for updates
-    //     if(cachedContent) {
-    //         console.log('Loading Cached Content')
-    //         FETCH_data(endpoints.HN_BASE_URL, endpoints.item, id, '.json')
-    //             .then(storyData => {
-    //                 if (
-    //                     data.score !== storyData[data.id] ||
-    //                     data.descendants !== storyData[data.id]
-    //                 ) {
-    //                     console.log('Updating Cached Content')
-    //                     setData(storyData)
-    //                 }
-    //             })
-    //     }
-    // }, [data])
 
     if (isLoading) { return <div className="StoryCard loading">LOADING</div>}
     return (

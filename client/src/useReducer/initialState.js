@@ -5,5 +5,4 @@ export default {
     askStory_IDs: [],
     jobStory_IDs: [],
     showStory_IDs: [],
-    // storyData: {},
 }

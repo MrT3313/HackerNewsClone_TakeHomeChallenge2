@@ -62,10 +62,10 @@ export default function({children}) {
         // Story Data
         storyData: state.storyData,
         setStoryData: storyData => {
-        dispatch({
-            type: actions.setStoryData,
-            value: storyData
-        })
+            dispatch({
+                type: actions.setStoryData,
+                value: storyData
+            })
         },
     }
 

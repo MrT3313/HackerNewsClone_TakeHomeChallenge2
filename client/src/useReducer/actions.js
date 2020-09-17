@@ -4,5 +4,4 @@ export default {
     setAskStory_IDs: 'setAskStory_IDs',
     setJobStory_IDs: 'setJobStory_IDs',
     setShowStory_IDs: 'setShowStory_IDs', 
-    // setStoryData: 'setStoryData',
 } 

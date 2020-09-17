@@ -15,13 +15,11 @@ import '../styles/Homepage.css'
 
 // __MAIN__ 
 function Show({IDs}) {
-console.log(IDs)
     // Context
     const { maxPerPage } = useContext(GlobalContext)
 
     // State
     const [currPage, setCurrPage] = useState(1)
-    console.log('Homepage => CURRENT PAGE', currPage)
 
     // Pagination
     const idxOfLastPost = currPage * maxPerPage
