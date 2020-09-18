@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import endpoints from '../utils/endpoints.js'
 
 // FUNCTIONS
-import toBaseURL from '../utils/REGEX_toBaseURL.js'
+import REGEX_toBaseURL from '../utils/REGEX_toBaseURL.js'
 import FETCH_data from '../utils/FETCH_data.js'
 
 // STYLES
@@ -23,7 +23,7 @@ function StoryCard({id, idx}) {
         FETCH_data(endpoints.HN_BASE_URL, endpoints.item, id, '.json')
             .then(storyData => {
                 setData(storyData)
-                storyData.url && setBaseURL(toBaseURL(storyData.url))
+                storyData.url && setBaseURL(REGEX_toBaseURL(storyData.url))
             })
             .then(() => setIsLoading(false))
     }, [id])
