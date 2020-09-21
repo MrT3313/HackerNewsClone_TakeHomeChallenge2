@@ -28,38 +28,48 @@ function StoryCard({id, idx}) {
             .then(() => setIsLoading(false))
     }, [id])
 
-    if (isLoading) { return <div className="StoryCard loading">LOADING</div>}
+    if (isLoading) { 
+        return (
+            <div className="StoryCard loading" data-testid='StoryCard_loading'>
+                LOADING
+            </div>
+        )
+    }
     return (
-        <div className="StoryCard">
+        <div className='StoryCard' data-testid='StoryCard_rendered'>
             <div className='Right'>
                 <div className="Idx">{idx}.</div>
             </div>
             <div className='Left'>
                 <div className='top'>
-                    <a className='title' href={data.url && data.url} target='_blank' rel="noopener noreferrer">
+                    <a  className='title' data-testid='title'
+                        href={data.url && data.url} target='_blank' rel="noopener noreferrer"
+                    >
                         {data.title}
                     </a>
-                    <a className='url' href={baseURL && `https://${baseURL}`} target='_blank' rel="noopener noreferrer">
+                    <a  className='base_URL' data-testid='base_URL'
+                        href={baseURL && `https://${baseURL}`} target='_blank' rel="noopener noreferrer"
+                    >
                         {data.url && `( ${baseURL} )`}
                     </a>
                 </div>
                 <div className='bottom'>
-                    <div className='points'>
+                    <div className='score' data-testid='score'> 
                         {data.score && `${data.score} points`}
                     </div>
-                    <div className='author'>
+                    <div className='author' data-testid='author'> 
                         {`by ${data.by}`}
                     </div>
-                    <div className='timeSincePost'>
-                        {`${data.time}`}
+
+                    <div className='timeSincePost' data-testid='timeSincePost'>
+                        {/* TODO: Util Date Formatter */}
                         {`${Math.floor(Math.abs(Date.now() - new Date(data.time * 1000)) / 36e5)} hour ago`}
                     </div>
                     <div className='NavPipe'>|</div>
                     <div>hide</div>
                     <div className='NavPipe'>|</div>
-                    <div>
-                        {/* {data.kids && `${data.kids.length} comments`} */}
-                        {data.kids && `${data.descendants} comments`}
+                    <div className='descendants' data-testid='descendants'>
+                        {data.descendants && `${data.descendants} comments`}
                     </div>
                 </div>
             </div>
