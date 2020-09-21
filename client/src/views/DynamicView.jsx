@@ -11,11 +11,13 @@ import StoryCard from '../components/StoryCard.js'
 import GlobalContext from '../Context/GlobalContext.js'
 
 // STYLES
-import '../styles/Homepage.css'
+import '../styles/DynamicView.css'
 
 // __MAIN__ 
-function Show({IDs}) {
+function DynamicView({IDs}) {
     // Context
+    // TODO: LEARN HOW TO TEST & REMOVE HARD CODING
+    // const maxPerPage = 30
     const { maxPerPage } = useContext(GlobalContext)
 
     // State
@@ -27,7 +29,7 @@ function Show({IDs}) {
     const currPosts = IDs.slice(idxOfFirstPost, idxOfLastPost)
 
     return (
-        <div className='Homepage'>
+        <div className='DynamicView'>
             <NavBar />
             <CardCreator 
                 array_of_IDs={currPosts} 
@@ -45,4 +47,4 @@ function Show({IDs}) {
 }
 
 // EXPORT
-export default Show;
+export default DynamicView;

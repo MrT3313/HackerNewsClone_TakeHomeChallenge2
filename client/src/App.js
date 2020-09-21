@@ -39,6 +39,7 @@ function App() {
       endpoints.showStories
     ])
       .then(data => {
+        console.log(data)
         setTopStory_IDs(data[0])
         setNewStory_IDs(data[1])
         setAskStory_IDs(data[2])
@@ -60,9 +61,9 @@ function App() {
   }, [topStory_IDs, newStory_IDs, askStory_IDs, jobStory_IDs, showStory_IDs])
 
   // Return
-  if (loading) { return <div>App is Loading...</div>}
+  if (loading) { return <div className='App_loading' data-testid='App_loading'>App is Loading...</div>}
   return (
-    <Switch className='App'>
+    <Switch className='App_rendered' data-testid='App_rendered'>
       <Route exact path='/' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={topStory_IDs}/> }/>
       <Route exact path='/newest' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={newStory_IDs}/> }/>
       <Route exact path='/ask' render={ (props) => <DynamicView {...props} key={Date.now()} IDs={askStory_IDs}/> }/>
