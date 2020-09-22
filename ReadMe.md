@@ -29,6 +29,21 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 ## Versions
 
 <details open>
+<summary>0.3.0 - Testing w/ React Testing Library</summary>
+
+### Approaches
+
+1. I initially started with **[jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock)** in order to fake HTTP requests & responses. This worked well with individual components but when It got to the higher level `<App />` component I was struggling interpreting the error messages I was getting.
+
+2. After doing more research I came across this article from the esteemed Kent C. Dodds [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch). Ironically this came on the same day I heard Elon Must mention that one of the biggest mistakes he sees smart engineers make is 'optomizing something that should not exist'. This naturally led me to question well Mr. Dodds if I mocking fetch API calls should not exist ... what can I do?! His answer: **[Mock Service Worker](https://mswjs.io/)**.
+
+### Tests
+
+1. `<StoryCard />` => mocking HTTP request in the component's `useEffect` to return and test that the fake details for the story are rendered appropriately.  
+
+</details>
+
+<details>
 <summary>0.2.0 - Approach 2 - DynamicViews & Top Stories / New Stories / Ask Stories / Show Stories / Job Stories</summary>
 
 - `Utils`

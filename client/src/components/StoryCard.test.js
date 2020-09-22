@@ -1,28 +1,25 @@
 // IMPORTS
 import React from 'react'
 import { render, cleanup, waitForElement } from '@testing-library/react'
+/* Mock Service Worker => setup in 'src > setupTests.js' */
 
 // COMPONENTS
 import StoryCard from '../components/StoryCard.js'
-
-// SETUP
-fetch = require('jest-fetch-mock')
 
 // TESTS
 afterEach(cleanup)
 
 test('<StoryCard />', async () => {
-    fetch.mockResponseOnce(JSON.stringify({
-        title: 'Article_TITLE',
-        by: 'Article_AUTHOR',
-        url: 'https://article_url.com/',
-        score: 100,
-        time: 1600694957,
-        descendants: 43,
-    }))
-
-    const { debug, getByTestId } = render(<StoryCard />)
-    await waitForElement(() => getByTestId('StoryCard_rendered'))
+    // Render
+    const { debug, getByTestId } = render(<StoryCard id={12345} idx={5}/>)
+    
+    // Test Loading State
+    const StoryCard_loading = getByTestId('StoryCard_loading')
+    debug(StoryCard_loading)
+    
+    // Wait for Mock
+    const StoryCard_rendered = await waitForElement(() => getByTestId('StoryCard_rendered'))
+    debug(StoryCard_rendered)
 
     const title = getByTestId('title')
     expect(title.textContent).toBe('Article_TITLE')
