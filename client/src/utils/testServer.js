@@ -6,14 +6,10 @@ import { setupServer } from 'msw/node'
 import endpoints from './endpoints.js'
 
 // MAKE SERVER
-// const getItemRequest = `${endpoints.HN_BASE_URL}${endpoints.item}/:id.json`
-// console.log(getItemRequest)
 const server = setupServer(
-
-    // rest.get(getItemRequest, (req, res, ctx) => {
+    // Get Item - OBJECT
     rest.get(`${endpoints.HN_BASE_URL}${endpoints.item}:id.json`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json(
-            // {message: 'this worked'}
             {
                 title: 'Article_TITLE',
                 by: 'Article_AUTHOR',
@@ -24,6 +20,9 @@ const server = setupServer(
             }
         ))
     }),
+    // Get IDs - ARRAY
+    // ...
+
     // Fallback Catch 
     rest.get('*', (req, res, ctx) => {
         console.error(`Please add request handler for ${req.url.toString()}`)

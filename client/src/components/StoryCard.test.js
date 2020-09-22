@@ -4,7 +4,7 @@ import { render, cleanup, waitForElement } from '@testing-library/react'
 /* Mock Service Worker => setup in 'src > setupTests.js' */
 
 // COMPONENTS
-import StoryCard from '../components/StoryCard.js'
+import StoryCard from './StoryCard.js'
 
 // TESTS
 afterEach(cleanup)
@@ -15,11 +15,11 @@ test('<StoryCard />', async () => {
     
     // Test Loading State
     const StoryCard_loading = getByTestId('StoryCard_loading')
-    debug(StoryCard_loading)
+    // debug(StoryCard_loading)
     
     // Wait for Mock
     const StoryCard_rendered = await waitForElement(() => getByTestId('StoryCard_rendered'))
-    debug(StoryCard_rendered)
+    // debug(StoryCard_rendered)
 
     const title = getByTestId('title')
     expect(title.textContent).toBe('Article_TITLE')
