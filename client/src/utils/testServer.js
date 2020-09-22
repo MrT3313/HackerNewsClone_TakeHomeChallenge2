@@ -42,7 +42,7 @@ const server = setupServer(
         return res(ctx.status(200), ctx.json([1]))
     }),
 
-    // Fallback Catch 
+    // Fallback Handler 
     rest.get('*', (req, res, ctx) => {
         console.error(`Please add request handler for ${req.url.toString()}`)
         return res(

@@ -13,14 +13,13 @@ import ContextProvider from '../Context/Provider.js'
 afterEach(cleanup)
 
 test('<DynamicView />', async () => {
-    const { debug, getAllByTestId, getByTestId } = render(
+    const { debug, getAllByTestId } = render(
         <MemoryRouter>
             <ContextProvider>
                 <DynamicView IDs={[1,2,3]}/>
             </ContextProvider>
         </MemoryRouter>
     )
-
     const StoryCards_loading = getAllByTestId('StoryCard_loading')
     expect(StoryCards_loading.length).toBe(3)
     // debug(StoryCards_loading)

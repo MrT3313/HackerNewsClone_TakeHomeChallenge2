@@ -29,25 +29,69 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 ## Versions
 
 <details open>
-<summary>0.3.0 - Testing w/ React Testing Library</summary>
+<summary>0.3.0 - Testing w/ React Testing Library & Mock Service Worker</summary>
 
 ### Approaches
 
-1. I initially started with **[jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock)** in order to fake HTTP requests & responses. This worked well with individual components but when it got to the higher level `<App />` component I was struggling interpreting the error messages I was getting.
+1. I initially started with **[jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock)** in order to fake HTTP requests & responses. This worked well with individual components but when it got to the higher level `<App />` component I was struggling to interpret the error messages I was getting.
 
-2. After doing more research I came across this article from the esteemed Kent C. Dodds [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch). Ironically this came on the same day I heard Elon Musk mention that one of the biggest mistakes he sees smart engineers make is 'optomizing something that should not exist'. This naturally led me to asking, `well Mr. Dodds if mock fetching should not exist ... what should I do?!` His answer: **[Mock Service Worker](https://mswjs.io/)**.
+2. After doing more research I came across this article from the esteemed Kent C. Dodds: [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch). Ironically this came on the same day that I heard Elon Musk mention that one of the biggest mistakes he sees smart engineers make is 'optomizing something that should not exist'. This naturally led me to asking, `well Mr. Dodds if mock fetching should not exist ... what should I do?!` His answer: **[Mock Service Worker](https://mswjs.io/)**.
+
+### Mock Service Worker (MSW)
+
+1. Mocking response from the HackerNews API `item` endpoint => returning OBJECT.
+
+    ```javascript
+    // Get Item - OBJECT
+    rest.get(`${endpoints.HN_BASE_URL}${endpoints.item}:id.json`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json(
+            {
+                title: 'Article_TITLE',
+                by: 'Article_AUTHOR',
+                url: 'https://article_url.com/',
+                score: 100,
+                time: 1600694957,
+                descendants: 43,
+            }
+        ))
+    }),
+    ```
+
+2. Mocking response from each HackerNews API `IDs` endpoint => each is returning an ARRAY of DIFFERENT lengths. The different lengths are used to test if the `<NavBar />` component is correctly routing and rendering the appropriate number of cards.
+
+    ```javascript
+    // Get IDs - ARRAY
+    // - 1 - // Top Stories
+    rest.get(`${endpoints.HN_BASE_URL}${endpoints.topStories}`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json([1,2,3,4,5]))
+    }),
+    // ...
+    ```
+
+3. In order to make sure that an error on my end does not let any API fetch calls go out to an actual server I added a `Fallback Handler` in the test server.
+
+    ```javascript
+    // Fallback Handler
+     rest.get('*', (req, res, ctx) => {
+         console.error(`Please add request handler for ${req.url.toString()}`)
+         return res(
+             ctx.status(500),
+             ctx.json({error: "Pleade add request handler"})
+         )
+     })
+    ```
 
 ### Tests
 
-1. `<StoryCard />`
-    - Happy Path: ✅
-    - Missing Data:  
-2. `<DynamicView />`
-    - Happy Path: ✅
-    - Missing Data:  
-3. `<App />`
-    - Happy Path: 
-    - Missing Data:  
+1. `<NavBar />`
+    - Testing all `href` attributes.
+2. `<StoryCard />`
+    - Happy Path: ✅ - All data appropriatly rendered.
+    - Missing Data: ✅ - Appropriate conditional rendering.
+3. `<DynamicView />`
+    - Passing an `IDs Array` and testing if the correct number of `loading` & `rendered` cards are rendered.
+4. `<App />`
+    - Having mocked all the return arrays in the `MSW test server` we are selecting each `<NavLink />` from the `<NavBar />`and testing to make sure the correct number of `<StoryCard />'s` are rendered for each route.
 
 </details>
 
@@ -130,19 +174,19 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 3. `src > index.js` render
     - importing the `Provider()` as `<ContextProvider />` from `Context > Provider.js` and rendering it through the main `ReactDOM.render()` in order to provide the `GlobalContext` to whole SPA.
 
-        ```javascript
-        // src > index.js
-            ReactDOM.render(
-                <React.StrictMode>
-                    <Router>
-                        <ContextProvider>
-                            <App />
-                        </ContextProvider>
-                    </Router>
-                </React.StrictMode>,
-                document.getElementById('root')
-            );
-        ```
+    ```javascript
+    // src > index.js
+        ReactDOM.render(
+            <React.StrictMode>
+                <Router>
+                    <ContextProvider>
+                        <App />
+                    </ContextProvider>
+                </Router>
+            </React.StrictMode>,
+            document.getElementById('root')
+        );
+    ```
 
 ### Components
 

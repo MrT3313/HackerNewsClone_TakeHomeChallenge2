@@ -69,7 +69,7 @@ function StoryCard({id, idx}) {
                     <div>hide</div>
                     <div className='NavPipe'>|</div>
                     <div className='descendants' data-testid='descendants'>
-                        {data.descendants && `${data.descendants} comments`}
+                        {data.descendants ? `${data.descendants} comments` : `discuss`}
                     </div>
                 </div>
             </div>

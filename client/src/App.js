@@ -59,7 +59,7 @@ function App() {
   }, [topStory_IDs, newStory_IDs, askStory_IDs, jobStory_IDs, showStory_IDs])
 
   // Return
-  if (loading) { return <div className='App_loading' data-testid='App_loading'>App is Loading...</div>}
+  if (loading) { return <div className='App_loading'>App is Loading...</div>}
   return (
     <Switch className='App_rendered'>
       <Route exact path='/' render={ (props) => <DynamicView {...props} key={Date.now()} DynamicClassName='TopStories' IDs={topStory_IDs}/> }/>
