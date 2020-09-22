@@ -14,7 +14,7 @@ import GlobalContext from '../Context/GlobalContext.js'
 import '../styles/DynamicView.css'
 
 // __MAIN__ 
-function DynamicView({IDs}) {
+function DynamicView({DynamicClassName, IDs}) {
     // Context
     // TODO: LEARN HOW TO TEST & REMOVE HARD CODING
     // const maxPerPage = 30
@@ -29,7 +29,7 @@ function DynamicView({IDs}) {
     const currPosts = IDs.slice(idxOfFirstPost, idxOfLastPost)
 
     return (
-        <div className='DynamicView'>
+        <div className={`DynamicView ${DynamicClassName}`} data-testid='DynamicView_rendered'>
             <NavBar />
             <CardCreator 
                 array_of_IDs={currPosts} 

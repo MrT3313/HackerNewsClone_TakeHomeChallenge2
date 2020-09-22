@@ -28,6 +28,5 @@ test('<DynamicView />', async () => {
     // Wait for Mock
     const StoryCards_rendered = await waitForElement(() => getAllByTestId('StoryCard_rendered'))
     expect(StoryCards_rendered.length).toBe(3)
-    debug(StoryCards_rendered)
-
+    // debug(StoryCards_rendered)
 })

@@ -33,13 +33,13 @@ const server = setupServer(
     rest.get(`${endpoints.HN_BASE_URL}${endpoints.askStories}`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json([1,2,3]))
     }),
-    // - 4 - // Job Stories
-    rest.get(`${endpoints.HN_BASE_URL}${endpoints.jobStories}`, (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json([1,2]))
-    }),
-    // - 5 - // Show Stories
+    // - 4 - // Show Stories
     rest.get(`${endpoints.HN_BASE_URL}${endpoints.showStories}`, (req, res, ctx) => {
         return res(ctx.status(200), ctx.json([1,2]))
+    }),
+    // - 5 - // Job Stories
+    rest.get(`${endpoints.HN_BASE_URL}${endpoints.jobStories}`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json([1]))
     }),
 
     // Fallback Catch 
