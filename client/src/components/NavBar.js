@@ -11,14 +11,14 @@ import '../styles/NavBar.css'
 // __MAIN__ 
 function NavBar() {
   return (
-      <div className='NavBar'>
+      <div className='NavBar' data-testid='NavBar'>
         <div className='Nav_LEFT'>
             <NavLink 
-                className='NavItem TitleCard'
+                className='NavItem TitleCard' data-testid='NavTo_HOME'
                 to='/'
             >
                 <img
-                    className='Logo'
+                    className='Logo' 
                     src={YCombinatorLogo} alt='Y Combinator Logo'
                     width='18px'
                     height='18px'
@@ -28,23 +28,42 @@ function NavBar() {
                     Hacker News
                 </div>
             </NavLink>
-            <NavLink to='/newest' className='NavItem' activeClassName="ActiveNavLink">new</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_NEW' activeClassName="ActiveNavLink"
+                to='/newest' 
+            >new</NavLink>
             <div className='NavPipe'>|</div>
-            <NavLink to='/past' className='NavItem'>past</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_PAST' activeClassName="ActiveNavLink"
+                to='/past' 
+            >past</NavLink>
             <div className='NavPipe'>|</div>
-            <NavLink to='/newcomments' className='NavItem' activeClassName="ActiveNavLink">comments</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_COMMENTS' activeClassName="ActiveNavLink"
+                to='/newcomments' 
+            >comments</NavLink>
             <div className='NavPipe'>|</div>
-            <NavLink to='/ask' className='NavItem' activeClassName="ActiveNavLink">ask</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_ASK' activeClassName="ActiveNavLink"
+                to='/ask' 
+            >ask</NavLink>
             <div className='NavPipe'>|</div>
-            <NavLink to='/show' className='NavItem' activeClassName="ActiveNavLink">show</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_SHOW' activeClassName="ActiveNavLink"
+                to='/show' 
+            >show</NavLink>
             <div className='NavPipe'>|</div>
-            <NavLink to='/jobs' className='NavItem' activeClassName="ActiveNavLink">jobs</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_JOBS' activeClassName="ActiveNavLink"
+                to='/jobs' 
+            >jobs</NavLink>
             <div className='NavPipe'>|</div>
-            {/* TODO: Private Route */}
-            <NavLink to='/submit' className='NavItem' activeClassName="ActiveNavLink">submit</NavLink>
+            <NavLink 
+                className='NavItem' data-testid='NavTo_SUBMIT' activeClassName="ActiveNavLink"
+                to='/submit' 
+            >submit</NavLink>
         </div>
         <div className='Nav_RIGHT'>
-            {/* TODO: Private Route => returns to previous page before clicking login */}
             <NavLink to='/login' className='NavItem' activeClassName="ActiveNavLink">login</NavLink>
         </div>
       </div>

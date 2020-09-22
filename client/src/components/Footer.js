@@ -7,7 +7,7 @@ import '../styles/Footer.css'
 // __MAIN__ 
 function Footer() {
   return (
-      <div className='Footer'>
+      <div className='Footer' data-testid='Footer'>
             <div className='Message'>
                 Applications are open for YC Winter 2021
             </div>
