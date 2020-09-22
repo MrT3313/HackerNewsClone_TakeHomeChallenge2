@@ -35,7 +35,7 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 
 1. I initially started with **[jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock)** in order to fake HTTP requests & responses. This worked well with individual components but when it got to the higher level `<App />` component I was struggling interpreting the error messages I was getting.
 
-2. After doing more research I came across this article from the esteemed Kent C. Dodds [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch). Ironically this came on the same day I heard Elon Musk mention that one of the biggest mistakes he sees smart engineers make is 'optomizing something that should not exist'. This naturally led me to asking, `well Mr. Dodds if mocking fetch calls should not exist ... what should I do?!` His answer: **[Mock Service Worker](https://mswjs.io/)**.
+2. After doing more research I came across this article from the esteemed Kent C. Dodds [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch). Ironically this came on the same day I heard Elon Musk mention that one of the biggest mistakes he sees smart engineers make is 'optomizing something that should not exist'. This naturally led me to asking, `well Mr. Dodds if mock fetching should not exist ... what should I do?!` His answer: **[Mock Service Worker](https://mswjs.io/)**.
 
 ### Tests
 
@@ -54,63 +54,82 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 <details>
 <summary>0.2.0 - Approach 2 - DynamicViews & Top Stories / New Stories / Ask Stories / Show Stories / Job Stories</summary>
 
-- `Utils`
-    1. `FETCH_data()` => a dynamic function used in the `useEffect` of all `<StoryCard />` components to get their individual data. It accepts a `URL_base`, `URL_endpoint`, `unique_ID`, `URL_suffix`.
-    2. `FETCH_ALL_IDs()` => a dynamic function that is used in the `<App />` component's `useEffect` to get all of the needed ID lists. It accepts a `URL_base` and an `endpoints` array. The function then maps through all the endpoints and returns an array of promises to be utilized by `Promise.all()`.
+### Utils
 
-- `<DynamicView />`
+1. `FETCH_data()` => a dynamic function used in the `useEffect` of all `<StoryCard />` components to get their individual data. It accepts a `URL_base`, `URL_endpoint`, `unique_ID`, `URL_suffix`.
+
+2. `FETCH_ALL_IDs()` => a dynamic function that is used in the `<App />` component's `useEffect` to get all of the needed ID lists. It accepts a `URL_base` and an `endpoints` array. The function then maps through all the endpoints and returns an array of promises to be utilized by `Promise.all()`.
+
+### Components
+
+1. `<DynamicView />`
     - This component has replaced all unique view components. It is called in the main `<App />` component's `Switch Router` and is recieving the appropriate ID List through `Render Props`.
 
-- `<CardCreator />`
+2. `<CardCreator />`
     - This is a bridge component that is used to map over a list of IDs and render the appropriate component type that is passed through on props.
 
-- `<StoryCard />`
+3. `<StoryCard />`
     - `useEffect()` is using the `FETCH_data()` util function to get the unique data. This data is then set on the individual component's `useState` hook.
 
-- `<App />`
+4. `<App />`
     - `useEffect()` is using the `FETCH_ALL_IDs()` util function to get all of the ID lists. This data is then set on the `GlobalContext` object.
+
 </details>
 
 <details>
-<summary>0.1.0 - Approach 1 - Setup & Homepage Component</summary>
+<summary>0.1.0 - Approach 1 - Context API Setup & Homepage Component</summary>
 
-### `useContext` & `useReducer` setup
+### Context API
 
-- `Provider()`
+1. `Provider()` function
     - Importing the main `GlobalContext` and wrapping its `children` in the `GlobalContext.Provider`.
-    - `useReducer()`
-        - the `Provider` is importing the `initialState`, an `actions` object, and a `reducer` function
-        - the Global State (with all `useReducer` functinality) is then being passed into the `GlobalContext.Provider` through a `value` prop 
+2. `useReducer()` hook
+    - the `Provider` is importing the `initialState`, an `actions` object, and a `reducer` function.
+    - the `GlobalContext.Provider` is accepting all `useReducer` functinality through the passed `value` prop.
+
     ```javascript
-    // Context > Provider.js
-    export default function({children}) {
-        const [ state, dispatch ] = useReducer(reducer, initialState)
-        const value = {
-            topStory_IDs: state.topStory_IDs,
-            setTopStory_IDs: storyIDs => {
-                dispatch({
-                    type: actions.setTopStory_IDs,
-                    value: storyIDs
-                })
-            },
+        // Context > Provider.js
+        // IMPORTS
+        // useReducer
+        import initialState from '../useReducer/initialState.js'
+        import actions from '../useReducer/actions.js'
+        import reducer from '../useReducer/reducer.js'
 
-            storyData: state.storyData,
-            setStoryData: storyData => {
-                dispatch({
-                    type: actions.setStoryData,
-                    value: storyData
-                })
-            },
+        // CONTEXT
+        import GlobalContext from '../Context/GlobalContext.js'
+
+        // EXPORT
+        export default function({children}) {
+            const [ state, dispatch ] = useReducer(reducer, initialState)
+            const value = {
+                topStory_IDs: state.topStory_IDs,
+                setTopStory_IDs: storyIDs => {
+                    dispatch({
+                        type: actions.setTopStory_IDs,
+                        value: storyIDs
+                    })
+                },
+
+                storyData: state.storyData,
+                setStoryData: storyData => {
+                    dispatch({
+                        type: actions.setStoryData,
+                        value: storyData
+                    })
+                },
+            }
+
+            return (
+                <GlobalContext.Provider value={value}>
+                    {children}
+                </GlobalContext.Provider>
+            )
         }
-
-        return (
-            <GlobalContext.Provider value={value}>
-                {children}
-            </GlobalContext.Provider>
-        )
-    }
     ```
-    - the `Provider` is then exported from `Context > Provider.js` and imported into `src > index.js` and rendered through the main `ReactDOM.render()` in order to provide the `GlobalContext` to whole SPA.
+
+3. `src > index.js` render
+    - importing the `Provider()` as `<ContextProvider />` from `Context > Provider.js` and rendering it through the main `ReactDOM.render()` in order to provide the `GlobalContext` to whole SPA.
+
         ```javascript
         // src > index.js
             ReactDOM.render(
@@ -127,22 +146,24 @@ Your challenge is to build a read-only clone of the hacker news frontend using t
 
 ### Components
 
-- `<App />`
+1. `<App />`
     - Once the `<App />` loads it: 
         1. Fetches the `topStories` => recieves array of `itemIDs`
             - Updates the `topStory_IDs` on the `GlobalContext` through a `setTopStory_IDs` function that dispatches an update action
         2. Loops through the `itemIDs` and gets the individual story details
-            - story details are added to a prep object object based on the `itemID`: 
+            - story details are added to a prep object object based on the `itemID`:
+
                 ```javascript
                     prepObject = {
                         itemID: storyData
                     }
                 ```
+
                 - This is done that that individual story details can be recieved in `O(1)` time when needed.
         3. Updates the `storyData` on the `GlobalContext` with the prep object through a `setStoryData` function that dispatches an update action.  
         4. Upates the `<App />` loading state to `false` and the main SPA router is hit, rendering the `<Homepage />`
 
-- `<Homepage />`
+2 `<Homepage />`
     - Uses `useContext` and the `GlobalContext` to recieve the `topStory_IDs` array & the `storyData` object
     - After accounting for pagination the `currentPosts` are mapped and the indvidual story data is recieved in `O(1)` time from the `storyData` object and passed to `<StoryCard />` to render the individual details
 

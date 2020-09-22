@@ -23,7 +23,6 @@ function App() {
     askStory_IDs, setAskStory_IDs,
     jobStory_IDs, setJobStory_IDs,
     showStory_IDs, setShowStory_IDs,
-    // storyData, setStoryData,
   } = useContext(GlobalContext)
 
   // State
